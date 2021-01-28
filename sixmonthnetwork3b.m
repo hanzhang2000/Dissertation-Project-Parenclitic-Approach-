@@ -33,9 +33,7 @@ for k=1:n
 end
 
 G1=graph(W1,{'Encephalopathy','Albumin','Bilirubin','PT','Creatinine','Ammonia','Na','Hb','CRP'})
-
 G2=graph(W2,{'Encephalopathy','Albumin','Bilirubin','PT','Creatinine','Ammonia','Na','Hb','CRP'})
-
 
 subplot(1,2,1)  
 plot(G1,'Layout','circle','EdgeLabel',G1.Edges.Weight, 'LineWidth',2, 'MarkerSize', 5, 'NodeColor', 'r')
@@ -46,12 +44,3 @@ subplot(1,2,2)
 plot(G2,'Layout','circle','EdgeLabel',G2.Edges.Weight, 'LineWidth',2, 'MarkerSize', 5, 'NodeColor', 'r')
 title('Non-Survivors') 
 pbaspect([1 1 1]) 
-
-
-
-        
-        
-         
-
-    
-    
