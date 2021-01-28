@@ -28,5 +28,3 @@ for f=1:n
     ZZ = sum(D,1).^-1 
     ZC=centrality(graph(Z),'closeness') 
 end
-    
-    
