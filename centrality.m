@@ -22,6 +22,3 @@ G.Nodes.Degree_of_connectivity=DC
 G.Nodes.Closeness = CC;
 G.Nodes.Betweenness = BC;
 G.Nodes %table
-            
-        
-
