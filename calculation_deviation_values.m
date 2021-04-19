@@ -1,10 +1,12 @@
-function[T1,T2]=new_deviation_function(M1,M2,n1,n2,nA,nB,nameA,nameB)
+function[T1,T2,T3,T4]=new_deviation_function(M1,M2,n1,n2,nA,nB,nameA,nameB)
+ID_ORIS=M1(:,1)
+ID_ORINS=M2(:,1)
 
 for i=1:n1
     if isnan(M1(i,nA))
         M1(i,nB)=NaN;
         M1(i,1)=NaN;
-    else   
+    else    
     end
 end
 
@@ -16,6 +18,7 @@ for i=1:n1
     end
 end
 
+ID_SI=M1(:,1);
 A1=M1(:,nA); A1(A1 ~= A1)=[];
 B1=M1(:,nB); B1(B1 ~= B1)=[];
 ID_S=M1(:,1); ID_S(ID_S ~=ID_S)=[];
@@ -36,6 +39,7 @@ for i=1:n2
     end
 end
 
+ID_NSI=M2(:,1);
 C1=M2(:,nA); C1(C1 ~= C1)=[];
 D1=M2(:,nB); D1(D1 ~= D1)=[];
 ID_NS=M2(:,1); ID_NS(ID_NS ~= ID_NS)=[]
@@ -93,6 +97,32 @@ end
     
 T1=table(ID_S,DS1,DS2,DS)
 T2=table(ID_NS,DNS1,DNS2,DNS)
+T3=[]
+T4=[]
+
+for i=1:length(ID_ORIS)
+    id = ID_ORIS(i,1)
+    inda = find(ID_S==id)
+    if length(inda)>0 
+        ind = inda(1)
+        T3 = [T3;id,DS(ind)]
+    else
+        T3 = [T3;id,NaN]
+    end
+end
+
+for i=1:length(ID_ORINS)
+    id=ID_ORINS(i,1)
+    inda = find(ID_NS==id)
+    if length(inda)>0
+        ind=inda(1)
+        T4 = [T4;id,DNS(ind)]
+    else
+        T4 = [T4;id,NaN]
+    end
+end
 
 end
+
+
 
