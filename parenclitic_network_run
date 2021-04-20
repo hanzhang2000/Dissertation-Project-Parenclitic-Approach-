@@ -1,0 +1,37 @@
+clc 
+clear all
+Deviation_Value=importdata('all deviation data.csv');
+ID=[];
+for i=1:length(Deviation_Value)
+    Patient_Data=Deviation_Value(i,:);
+    for j=1:length(Patient_Data);
+        if isnan(Patient_Data(1,j));
+            Deviation_Value(i,:)=NaN;
+        end
+    end
+    if isnan(Deviation_Value(i,:))
+    else
+        ID=[ID,i];
+    end
+end
+
+for i=1:length(ID)
+    PD=Deviation_Value(ID(i),:)';
+    [EW_mean,EW_variation,EW_maximum,VD_mean,VD_variation,VD_maximum,SPL_mean,Diameter,Efficiency]=deviation_network(PD);
+    Network_Values(i,:)=[ID(i),EW_mean,EW_variation,EW_maximum,VD_mean,VD_variation,VD_maximum,SPL_mean,Diameter,Efficiency];
+end
+
+n=length(ID)
+T=[]
+for i=1:ID(n)
+    id = i
+    inda = find(ID==id)
+    if length(inda>0)
+       ind = inda(1)
+       T = [T;i,Network_Values(ind,:)]
+    else
+       T = [T;i,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN]
+    end
+end
+
+        
