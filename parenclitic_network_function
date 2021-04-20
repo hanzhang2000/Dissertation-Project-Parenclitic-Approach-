@@ -1,0 +1,63 @@
+function[EW_mean,EW_variation,EW_maximum,VD_mean,VD_variation,VD_maximum,SPL_mean,Diameter,Efficiency]=deviation_network(PD)
+PN=zeros(5,5);
+PN(1,2)=PD(1,1); PN(2,1)=PD(1,1);
+PN(1,3)=PD(2,1); PN(3,1)=PD(2,1);
+PN(1,4)=PD(3,1); PN(4,1)=PD(3,1);
+PN(1,5)=PD(4,1); PN(5,1)=PD(4,1);
+PN(2,3)=PD(5,1); PN(3,2)=PD(5,1);
+PN(2,4)=PD(6,1); PN(4,2)=PD(6,1);
+PN(2,5)=PD(7,1); PN(5,2)=PD(7,1);
+PN(4,5)=PD(10,1); PN(5,4)=PD(10,1);
+
+names={'ENcephalopathy','Albumin','Bilirubin','PT','Ammonia'}
+G=graph(PN,names);
+plot(G,'Layout','circle','EdgeLabel',G.Edges.Weight, 'LineWidth',2, 'MarkerSize', 5, 'NodeColor', 'r')
+
+%mean, variation, and maximum values of edge weights
+EW=G.Edges.Weight
+EW_mean=mean(EW)
+EW_variation=std(EW)
+EW_maximum=max(EW)
+
+%mean,variation and maximal values of vertex degree
+n=length(PN)
+for i=1:n
+    VD_weighted(i,1)=sum(PN(i,:))
+end
+VD_mean=mean(VD_weighted)
+VD_variation=std(VD_weighted)
+VD_maximum=max(VD_weighted)
+
+%mean and variation of shortest path length
+D=distances(G) 
+for i=1:n
+    SPL_mean=sum(sum(D))/(n*n)
+    %variation
+end
+
+%diameter of graph as the maximum distance between a pair of vertices, in
+%another way defined as the maximum shortest paths between any two nodes in the network
+Diameter=max(max(D))
+
+%efficiency of the network: defined as the geometrical mean of the lengths
+%of shortest paths between all pairs of nodes in a network
+for i=1:n
+    for j=1:n
+        if D(i,j)==0
+            DD(i,j)=0
+        else
+            DD(i,j)=1/D(i,j)
+        end
+    end
+end
+Efficiency=1/(n*(n-1))*sum(sum(DD))
+
+
+end
+
+
+
+
+
+
+
